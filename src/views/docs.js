@@ -40,7 +40,7 @@ export function docsPage() {
       <div class="doc-stats" data-reveal data-reveal-delay="3">
         ${d.stats.map((s) => `<div class="doc-stat"><strong>${esc(s.value)}</strong><span>${esc(s.label)}</span></div>`).join('')}
       </div>
-      <p class="doc-src">Live reference: <a href="${esc(d.originalUrl)}" rel="noopener" target="_blank">${esc(d.originalUrl)} ↗</a></p>
+      <p class="doc-src">Reference: internal gateway documentation</p>
     </div>
   </section>
   <section class="section section-flush">

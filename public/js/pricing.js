@@ -77,7 +77,7 @@
     if (!pagination) return;
     if (totalPages <= 1) { pagination.innerHTML = ''; return; }
     const btn = (label, target, opts = {}) =>
-      `<button class="page-btn${opts.active ? ' is-active' : ''}" data-page="${target}" ${opts.disabled ? 'disabled' : ''} aria-label="${label}">${opts.text ?? label}</button>`;
+      `<button type="button" class="page-btn${opts.active ? ' is-active' : ''}" data-page="${target}" ${opts.disabled ? 'disabled' : ''} aria-label="${label}">${opts.text ?? label}</button>`;
     let html = btn('Previous page', page - 1, { disabled: page === 1, text: '‹' });
     for (let i = 1; i <= totalPages; i++) html += btn(`Page ${i}`, i, { active: i === page, text: i });
     html += btn('Next page', page + 1, { disabled: page === totalPages, text: '›' });

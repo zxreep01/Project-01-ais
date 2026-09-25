@@ -100,7 +100,7 @@ export function pricingPage(models, info) {
         <span class="pulse-dot"></span>
         ${
           live
-            ? `Live data · fetched from <a href="${esc(info._endpoint || 'https://api.aisubscription.shop/api/pricing')}" rel="noopener">api.aisubscription.shop</a>${info._fetchedAt ? ` · ${esc(info._fetchedAt)}` : ''}`
+            ? `Live data · refreshed ${info._fetchedAt ? esc(info._fetchedAt) : 'just now'}`
             : 'Snapshot data · upstream API unreachable right now (bundled fallback)'
         }
       </div>
