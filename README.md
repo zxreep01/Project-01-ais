@@ -51,6 +51,8 @@ GET https://api.aisubscription.shop/api/pricing
 
 ## Develop
 
+Requires **Node.js 22 or newer** (`wrangler` v4 enforces this). The version is pinned in [`.nvmrc`](.nvmrc) — run `nvm use` to switch.
+
 ```bash
 npm install
 npm run dev        # Node.js server on http://localhost:3000
@@ -62,11 +64,19 @@ npm run pages:dev  # Cloudflare Pages runtime emulation on http://localhost:8788
 1. `npx wrangler login`
 2. `npm run deploy` — deploys `public/` + Functions as the Pages project `ai-subscription`
 
+The compatibility date and the `nodejs_compat` flag are read from [`wrangler.jsonc`](wrangler.jsonc).
+Note that `wrangler pages deploy` does **not** accept `--compatibility-date` / `--compatibility-flags`
+on the command line (those flags exist only for `wrangler pages dev`) — passing them fails the build
+with `Unknown arguments`. Keep those settings in `wrangler.jsonc`.
+
 Or connect the repo in the Cloudflare dashboard (Direct Upload or Git integration) with:
 
 - **Build command:** *(none — no build step required)*
-- **Build output directory:** `public`
+- **Build output directory:** `public` (already set via `pages_build_output_dir` in `wrangler.jsonc`)
 - **Root directory:** *(repo root)*
+- **Node.js version:** `22.16.0` — Cloudflare Pages reads [`.nvmrc`](.nvmrc) and **ignores** the
+  `engines` field in `package.json`, so the pinned file is what keeps the build off the old
+  Node 18.17.1 v1 build image, where `wrangler` v4 cannot install or run.
 - Compatibility flags: `nodejs_compat` (set via `wrangler.jsonc` / dashboard)
 
 ## Notes
