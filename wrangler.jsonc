@@ -1,0 +1,9 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "ai-subscription",
+  "compatibility_date": "2026-01-01",
+  "compatibility_flags": ["nodejs_compat"],
+  // Cloudflare Pages: static assets live in public/, dynamic routes are
+  // handled by the catch-all Pages Function in functions/[[path]].js
+  "pages_build_output_dir": "public"
+}

@@ -1,0 +1,23 @@
+{
+  "name": "ai-subscription-gateway",
+  "version": "1.0.0",
+  "description": "AI Subscription — Unified API Gateway for a vast range of AI models. Node.js project deployable to Cloudflare Pages.",
+  "type": "module",
+  "private": true,
+  "engines": {
+    "node": ">=18.17"
+  },
+  "scripts": {
+    "dev": "node src/node-server.js",
+    "start": "node src/node-server.js",
+    "pages:dev": "wrangler pages dev public --port 8788 --compatibility-date 2026-01-01 --compatibility-flags nodejs_compat",
+    "deploy": "wrangler pages deploy public --project-name ai-subscription --compatibility-date 2026-01-01 --compatibility-flags nodejs_compat"
+  },
+  "dependencies": {
+    "@hono/node-server": "^1.13.7",
+    "hono": "^4.6.14"
+  },
+  "devDependencies": {
+    "wrangler": "^4.140.0"
+  }
+}

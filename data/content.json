@@ -186,10 +186,10 @@
       "note": "Content synthesized from site metadata (the live /about route redirects to home). Based on llms-docs branding: 'Tantra AI Labs — Open-Weight AI, Built From Scratch' / 'Build with Astra AI Gateway'.",
       "intro": "AI Subscription is an AI Application Infrastructure Foundation: one OpenAI-compatible endpoint routing 42+ models — text, vision, image generation and video — with pay-as-you-go wallet billing and guaranteed structured output.",
       "highlights": [
-        "One endpoint. Every model — automatic failover, zero-buffering streaming, per-second video generation.",
-        "Pay-as-you-go wallet billing from one balance; live balance metadata in every response.",
-        "OpenAI, Claude and cURL compatible — works with any OpenAI/Anthropic SDK.",
-        "Guaranteed structured output via JSON Schema guided decoding."
+        { "title": "One endpoint. Every model.", "description": "Automatic failover, zero-buffering streaming, and per-second video generation across 42+ models." },
+        { "title": "Pay-as-you-go wallet", "description": "One balance for everything, with live balance metadata embedded in every single API response." },
+        { "title": "Works with any SDK", "description": "OpenAI, Claude and cURL compatible — point any OpenAI/Anthropic SDK at the gateway and go." },
+        { "title": "Guaranteed structured output", "description": "JSON Schema enforcement via guided decoding — schema-valid responses by construction." }
       ]
     },
     "docs": {
