@@ -1,4 +1,12 @@
-{
+// stats-snapshot.js — bundled data module.
+//
+// This is an ES module rather than a .json file on purpose: Cloudflare Pages compiles
+// Functions with its own pinned wrangler (3.x) and esbuild 0.17.19, which cannot parse
+// ES import attributes (`with { type: 'json' }`). Node 22 ESM, in turn, *requires* that
+// attribute for .json imports. `export default <object literal>` is the one form both
+// accept. Keep this file as plain data — no imports, no modern-only syntax.
+
+export default {
   "_note": "Status/latency/TPS snapshot scraped from the aisubscription.shop pricing page (not exposed by the public pricing API).",
   "scrapedAt": "2026-09-25",
   "models": {
@@ -23,4 +31,4 @@
     "gemini-2.5-flash-thinking": { "status": "0.00%", "latency": "1.06s", "tps": null },
     "gemini-3-flash-preview": { "status": "0.00%", "latency": "1.01s", "tps": null }
   }
-}
+};

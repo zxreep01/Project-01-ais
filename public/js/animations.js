@@ -80,9 +80,12 @@
     }
   }
 
-  /* ---------- progress bar + nav state ---------- */
+  /* ---------- progress bar + nav state + sticky CTA ---------- */
   const bar = document.getElementById('progressBar');
   const nav = document.getElementById('siteNav');
+  const stickyCta = document.getElementById('stickyCta');
+  const ctaRingBar = document.getElementById('ctaRingBar');
+  const RING_LEN = 100.53; // 2πr for r=16, matches stroke-dasharray in CSS
   let ticking = false;
   const onScroll = () => {
     if (ticking) return;
@@ -90,21 +93,45 @@
     requestAnimationFrame(() => {
       const doc = document.documentElement;
       const max = doc.scrollHeight - window.innerHeight;
-      if (bar) bar.style.width = `${max > 0 ? (window.scrollY / max) * 100 : 0}%`;
+      const progress = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
+      if (bar) bar.style.width = `${progress * 100}%`;
       if (nav) nav.classList.toggle('is-scrolled', window.scrollY > 12);
+      // reveal the mini-CTA once the visitor is past the fold
+      if (stickyCta) stickyCta.classList.toggle('is-visible', window.scrollY > window.innerHeight * 0.75);
+      if (ctaRingBar) ctaRingBar.style.strokeDashoffset = String(RING_LEN * (1 - progress));
       ticking = false;
     });
   };
   window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll, { passive: true });
   onScroll();
 
   /* ---------- mobile nav ---------- */
   const toggle = document.getElementById('navToggle');
+  const setNavOpen = (open) => {
+    if (!nav || !toggle) return;
+    nav.classList.toggle('nav-open', open);
+    toggle.setAttribute('aria-expanded', String(open));
+  };
   if (toggle && nav) {
-    toggle.addEventListener('click', () => {
-      const open = nav.classList.toggle('nav-open');
-      toggle.setAttribute('aria-expanded', String(open));
+    toggle.addEventListener('click', () => setNavOpen(!nav.classList.contains('nav-open')));
+
+    // close the panel after navigating, on Escape, or when growing to desktop
+    const panel = document.getElementById('navMobile');
+    if (panel) {
+      panel.addEventListener('click', (e) => {
+        if (e.target.closest('a')) setNavOpen(false);
+      });
+    }
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') setNavOpen(false);
     });
+    const desktop = window.matchMedia('(min-width: 1024px)');
+    const onBreakpoint = () => {
+      if (desktop.matches) setNavOpen(false);
+    };
+    if (desktop.addEventListener) desktop.addEventListener('change', onBreakpoint);
+    else if (desktop.addListener) desktop.addListener(onBreakpoint);
   }
 
   /* ---------- bento spotlight ---------- */

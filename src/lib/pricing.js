@@ -1,4 +1,6 @@
-import fallbackPricing from '../../data/models.json' with { type: 'json' };
+// Plain ES-module data import (not `.json` + import attributes): Cloudflare Pages
+// compiles Functions with esbuild 0.17.19, which cannot parse `with { type: 'json' }`.
+import fallbackPricing from '../../data/models.js';
 
 export const UPSTREAM_API = 'https://api.aisubscription.shop';
 const PRICING_ENDPOINT = `${UPSTREAM_API}/api/pricing`;
@@ -10,7 +12,7 @@ let cache = { value: null, ts: 0 };
 
 /**
  * Fetch the live pricing dataset from the original site's public API.
- * Falls back to the bundled snapshot (data/models.json) when the upstream
+ * Falls back to the bundled snapshot (data/models.js) when the upstream
  * is unreachable (e.g. sandboxed/offline environments).
  */
 export async function getPricing({ forceFresh = false } = {}) {
