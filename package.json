@@ -11,6 +11,7 @@
     "dev": "node src/node-server.js",
     "start": "node src/node-server.js",
     "pages:dev": "wrangler pages dev public --port 8788 --compatibility-date 2026-01-01 --compatibility-flags nodejs_compat",
+    "pages:preflight": "npx --yes wrangler@3.114.17 pages functions build functions --outfile=.wrangler/_preflight-worker.js",
     "deploy": "wrangler pages deploy public --project-name ai-subscription"
   },
   "dependencies": {
