@@ -293,6 +293,7 @@ main {
 .terminal,
 .model-card,
 .bento-card,
+.feature-card,
 .auth-card,
 .cta-panel,
 .step,
@@ -325,6 +326,7 @@ main {
 .tag,
 .app-chip,
 .page-btn,
+.carousel-btn,
 .unit-toggle,
 .details-toggle,
 .hero-badge,
@@ -1088,15 +1090,8 @@ main {
 }
 
 /* ============================================================
-   11. Bento feature grid
+   11. Feature cards — bento cards (about) + features carousel (home)
    ============================================================ */
-
-.bento {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: 16px;
-  margin-top: 28px;
-}
 
 .bento-card {
   position: relative;
@@ -1133,8 +1128,163 @@ main {
   opacity: 1;
 }
 
-.bento-index {
+.bento-card h3,
+.feature-card h3 {
+  font-size: 1.0625rem;
+  margin-bottom: 8px;
+}
+
+.bento-card p,
+.feature-card p {
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--text-muted);
+}
+
+.bento-mini {
+  padding: 20px;
+}
+
+.bento-mini h3 {
+  font-size: 0.98rem;
+}
+
+.bento-mini p {
+  font-size: 13.5px;
+}
+
+/* ---------- home: features carousel ----------
+   Nine stacked cards made this section ~1,600px tall on phones. It is now one
+   scroll-snap row (after saas-landing's `.carousel-*`): as many cards as fit
+   sit crisp and flush with the heading — 1 on phones, 2 from 640px, 3 from
+   1024px — while the next one peeks in, dimmed, at the edge. Swipe, arrows,
+   dots and ← → keys move one card at a time; without JS it is still a plain
+   swipeable row. */
+
+.section-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px 24px;
+}
+
+.section-head-text {
+  min-width: 0;
+}
+
+.carousel-arrows {
+  display: none; /* phones: swipe + dots; shown from 640px */
+  gap: 8px;
+  flex: none;
+}
+
+.carousel-btn {
   display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--pill);
+  color: var(--ink);
+  cursor: pointer;
+  transition: background 0.2s ease, opacity 0.2s ease, transform 0.2s var(--ease-out);
+}
+
+.carousel-btn:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.carousel-btn:active:not(:disabled) {
+  transform: scale(0.94);
+}
+
+.carousel-btn:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.carousel {
+  margin-top: 28px;
+}
+
+.carousel-track {
+  --per-view: 1;
+  --carousel-gap: 14px;
+  --peek-room: 40px; /* held back from the crisp cards so the next one shows */
+  --card-w: calc(
+    (100% - 2 * var(--gutter) - (var(--per-view) - 1) * var(--carousel-gap) - var(--peek-room)) /
+      var(--per-view)
+  );
+  position: relative; /* offsetParent for the slides (carousel JS) */
+  display: flex;
+  align-items: stretch;
+  gap: var(--carousel-gap);
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: var(--gutter);
+  scrollbar-width: none;
+  /* Bleed through the container gutter so slides run to the screen edge on
+     phones, and pad the scrollport so card shadows aren't clipped — the
+     negative margins keep both out of the layout. */
+  margin: -12px calc(-1 * var(--gutter)) -44px;
+  padding: 12px 0 44px; /* 44px: the card shadows fade out fully before the scroller clips them */
+  /* whatever peeks past the content edge fades out inside the gutter */
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 var(--gutter), #000 calc(100% - var(--gutter)), transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 var(--gutter), #000 calc(100% - var(--gutter)), transparent);
+}
+
+.carousel-track::-webkit-scrollbar {
+  display: none;
+}
+
+/* The mask would fade a ring drawn on the track, so the wrapper draws it.
+   Browsers without :has() keep the track's own outline instead. */
+@supports selector(:has(*)) {
+  .carousel-track:focus-visible {
+    outline: none;
+  }
+
+  .carousel:has(> .carousel-track:focus-visible) {
+    outline: 2px solid var(--ink);
+    outline-offset: 6px;
+    border-radius: var(--radius-xl);
+  }
+}
+
+/* gutter-wide end caps: the first and last card rest flush with the content edge */
+.carousel-spacer {
+  flex: 0 0 max(0px, calc(var(--gutter) - var(--carousel-gap)));
+}
+
+.feature-card {
+  flex: 0 0 var(--card-w);
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--radius-xl);
+  padding: 24px;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  transition: opacity 0.35s ease, transform 0.35s var(--ease-snap), filter 0.35s ease,
+    box-shadow 0.4s var(--ease-out), background 0.3s ease;
+}
+
+/* same lift as the other cards; mouse only, so a tap doesn't leave it stuck up
+   (dimmed cards keep their scale — the rule below outranks this one) */
+@media (hover: hover) {
+  .feature-card:hover {
+    transform: translateY(-3px);
+    background: rgba(255, 255, 255, 0.62);
+    /* tighter than .bento-card's so it fades out inside the track's shadow
+       padding instead of being cut off by the scroller */
+    box-shadow: 0 1px 1px var(--glass-strong-inset) inset, 0 18px 44px -18px rgba(0, 0, 0, 0.3);
+  }
+}
+
+.feature-index {
+  display: inline-flex;
+  align-self: flex-start;
   align-items: center;
   justify-content: center;
   font-family: var(--font-display);
@@ -1148,32 +1298,65 @@ main {
   margin-bottom: 16px;
 }
 
-.bento-card h3 {
-  font-size: 1.0625rem;
-  margin-bottom: 8px;
+/* tags sit on the card's floor, so they line up across the equal-height slides */
+.feature-card .tag-row {
+  margin-top: auto;
+  padding-top: 16px;
 }
 
-.bento-card p {
-  font-size: 14px;
-  line-height: 1.65;
-  color: var(--text-muted);
+/* Cards out of view are dimmed only once the script runs (it marks the
+   in-view ones `.is-active`) — without JS every card stays crisp. */
+[data-carousel].is-ready .feature-card:not(.is-active) {
+  opacity: 0.55;
+  transform: scale(0.92);
+  filter: blur(2px);
+  cursor: pointer; /* a click scrolls it into view */
 }
 
-/* tags followed the description with no gap and collided with its last line */
-.bento-card .tag-row {
+[data-carousel].is-ready .feature-card:not(.is-active):hover {
+  opacity: 0.8;
+}
+
+.carousel-dots {
+  /* Positioned so it paints above the (positioned) track, whose shadow
+     padding reaches down behind this row and used to swallow taps on the
+     upper half of every dot. */
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   margin-top: 16px;
 }
 
-.bento-mini {
-  padding: 20px;
+/* 24px hit area (WCAG 2.5.8) around an 8px dot; the current one stretches into a pill */
+.carousel-dot {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
 }
 
-.bento-mini h3 {
-  font-size: 0.98rem;
+.carousel-dot::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: var(--pill);
+  background: rgba(10, 10, 10, 0.45); /* ≥3:1 against the page (WCAG 1.4.11) */
+  transition: width 0.3s var(--ease-out), background 0.2s ease;
 }
 
-.bento-mini p {
-  font-size: 13.5px;
+.carousel-dot:hover::before {
+  background: rgba(10, 10, 10, 0.7);
+}
+
+.carousel-dot.is-active::before {
+  width: 20px;
+  background: var(--ink);
 }
 
 /* ============================================================
@@ -2577,6 +2760,7 @@ main {
 
   .model-card,
   .bento-card,
+  .feature-card,
   .step,
   .doc-section {
     padding: 16px 14px;
@@ -2703,8 +2887,19 @@ main {
     padding: 28px 26px;
   }
 
-  .bento-card {
+  .bento-card,
+  .feature-card {
     padding: 28px;
+  }
+
+  /* features carousel: two cards in view, arrows beside the heading */
+  .carousel-arrows {
+    display: flex;
+  }
+
+  .carousel-track {
+    --per-view: 2;
+    --carousel-gap: 18px;
   }
 
   .pricing-toolbar {
@@ -2719,16 +2914,6 @@ main {
 
 /* --- ≥ 768px (md) --- */
 @media (min-width: 768px) {
-  .bento {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 18px;
-  }
-
-  /* two columns + an odd card count left the last card beside a hole */
-  .bento > :last-child:nth-child(odd) {
-    grid-column: 1 / -1;
-  }
-
   .terminal-split {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -2810,35 +2995,10 @@ main {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
-  .bento {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
-
-  .bento-card-1,
-  .bento-card-2 {
-    grid-column: span 2;
-  }
-
-  .bento-card-3,
-  .bento-card-4,
-  .bento-mini {
-    grid-column: span 1;
-  }
-
-  /* Cards 1–2 fill row one; the rest flow four per row. Stretch the tail so
-     the last row never ends in an empty cell (9 cards used to leave a hole
-     bottom-right). Count-agnostic, so edits to content.js stay gap-free. */
-  .bento > :last-child:nth-child(4n + 1) {
-    grid-column: span 2; /* 3 cards in the last row */
-  }
-
-  .bento > :last-child:nth-child(4n + 3) {
-    grid-column: 1 / -1; /* 1 card in the last row */
-  }
-
-  .bento > :nth-last-child(2):nth-child(4n + 3),
-  .bento > :last-child:nth-child(4n + 4) {
-    grid-column: span 2; /* 2 cards in the last row */
+  /* features carousel: three cards in view */
+  .carousel-track {
+    --per-view: 3;
+    --carousel-gap: 20px;
   }
 
   .steps {
@@ -2860,10 +3020,6 @@ main {
 @media (min-width: 1280px) {
   .hero-inner {
     gap: 24px;
-  }
-
-  .bento {
-    gap: 20px;
   }
 }
 
@@ -2930,11 +3086,30 @@ main {
   .nav,
   .sticky-cta,
   .progress-bar,
-  .demo-toast {
+  .demo-toast,
+  .carousel-spacer,
+  [data-carousel-controls] {
     display: none !important;
   }
 
   body {
     background: #fff;
+  }
+
+  /* paper can't scroll sideways: print every feature slide, stacked */
+  .carousel-track {
+    flex-wrap: wrap;
+    overflow: visible;
+    margin: 0;
+    padding: 0;
+    -webkit-mask-image: none;
+    mask-image: none; /* the edge fade would eat into the stacked cards */
+  }
+
+  .feature-card {
+    flex-basis: 100%;
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
   }
 }
