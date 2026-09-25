@@ -10,11 +10,11 @@ export default {
   "site": {
     "name": "AI Subscription",
     "tagline": "Unified API Gateway for a Vast Range of AI Models",
-    "logoUrl": "/favicon.svg",
-    "apiBaseUrl": "/api",
-    "pricingApiUrl": "/api/pricing",
-    "docsUrl": "/docs",
-    "sourceUrl": "/"
+    "logoUrl": "https://api.aisubscription.shop/logo.png",
+    "apiBaseUrl": "https://api.aisubscription.shop",
+    "pricingApiUrl": "https://api.aisubscription.shop/api/pricing",
+    "docsUrl": "https://api.aisubscription.shop/llms-docs",
+    "sourceUrl": "https://aisubscription.shop"
   },
   "pages": {
     "home": {
@@ -26,7 +26,7 @@ export default {
         "ctas": [
           { "label": "Get Started", "href": "/sign-up" },
           { "label": "View Pricing", "href": "/pricing" },
-          { "label": "Docs", "href": "/docs" }
+          { "label": "Docs", "href": "https://api.aisubscription.shop/llms-docs" }
         ]
       },
       "supportedApplications": {
@@ -202,7 +202,7 @@ export default {
     },
     "docs": {
       "path": "/docs",
-      "originalUrl": "/docs",
+      "originalUrl": "https://api.aisubscription.shop/llms-docs",
       "eyebrow": "MACHINE-READABLE API REFERENCE",
       "title": "Build with Astra AI Gateway.",
       "subtitle": "One OpenAI-compatible endpoint. 42+ models — text, vision, image generation and video — with pay-as-you-go wallet billing and guaranteed structured output.",
@@ -217,8 +217,8 @@ export default {
           "number": "01",
           "title": "One endpoint. Every model.",
           "body": "Astra AI Gateway routes your requests across 42+ state-of-the-art models with automatic failover, zero-buffering streaming and per-second video generation — all billed from one pay-as-you-go wallet.",
-          "code": "curl /v1/chat/completions \\\n  -H \"Authorization: Bearer $ASTRA_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\n    \"model\": \"deepseek-v4-flash\",\n    \"messages\": [\n      {\"role\": \"user\", \"content\": \"Hello\"}\n    ],\n    \"max_tokens\": 2000\n  }'",
-          "note": "Set base_url = \"/v1\" in any OpenAI / Anthropic SDK. Auth accepts Bearer, X-Astra-Key or x-api-key."
+          "code": "curl https://api.aisubscription.shop/v1/chat/completions \\\n  -H \"Authorization: Bearer $ASTRA_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\n    \"model\": \"deepseek-v4-flash\",\n    \"messages\": [\n      {\"role\": \"user\", \"content\": \"Hello\"}\n    ],\n    \"max_tokens\": 2000\n  }'",
+          "note": "Set base_url = \"https://api.aisubscription.shop/v1\" in any OpenAI / Anthropic SDK. Auth accepts Bearer, X-Astra-Key or x-api-key."
         },
         {
           "number": "02",
@@ -276,14 +276,14 @@ export default {
           "items": [
             { "label": "1 · Submit", "value": "POST /v1/videos {\"model\": \"/data/Models/MiniMax-H3\", \"prompt\": \"...\", \"seconds\": \"5\", \"aspect_ratio\": \"16:9\"} → {\"task_id\": \"task_...\", \"status\": \"queued\"}" },
             { "label": "2 · Poll (~2.5 min for 5s)", "value": "GET /v1/videos/{task_id} → {\"status\": \"completed\", \"progress\": 100, \"url\": \"/media/video_gen_....mp4?exp=...&sig=...\"}" },
-            { "label": "3 · Play / download", "value": "/media/video_gen_....mp4 → signed link, plays in browser, no auth needed, 1-hour validity" }
+            { "label": "3 · Play / download", "value": "https://api.aisubscription.shop{url} → signed link, plays in browser, no auth needed, 1-hour validity" }
           ]
         },
         {
           "number": "07",
           "title": "Know your balance. Always.",
           "body": "Every response body carries an astra block with live wallet state — never guess when to recharge.",
-          "code": "\"astra\": {\n  \"gateway\": \"api\",\n  \"balance_usd\": \"12.3571\",\n  \"used_usd\": \"26.5082\",\n  \"plan\": \"default/prepaid\",\n  \"models_count\": \"42\",\n  \"providers\": \"api\",\n  \"requests\": \"544\"\n}"
+          "code": "\"astra\": {\n  \"gateway\": \"aisubscription.shop\",\n  \"balance_usd\": \"12.3571\",\n  \"used_usd\": \"26.5082\",\n  \"plan\": \"default/prepaid\",\n  \"models_count\": \"42\",\n  \"providers\": \"aisubscription.shop\",\n  \"requests\": \"544\"\n}"
         },
         {
           "number": "08",

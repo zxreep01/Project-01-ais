@@ -8,7 +8,8 @@ function shell(inner, wide = false) {
   <section class="auth-wrap">
     <div class="auth-card${wide ? ' auth-card-wide' : ''}" data-reveal>
       <a class="auth-logo" href="/" aria-label="AI Subscription home">
-        <span class="auth-logo-fallback" aria-hidden="true">AI</span>
+        <img src="https://api.aisubscription.shop/logo.png" alt="AI Subscription logo" width="40" height="40" loading="lazy"
+             onerror="this.outerHTML='<span class=&quot;auth-logo-fallback&quot;>AI</span>'">
         <strong>AI Subscription</strong>
       </a>
       ${inner}
