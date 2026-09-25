@@ -95,33 +95,55 @@ export function homePage() {
   const f = p.features;
   const featureTags = (item) =>
     item.tags ? `<div class="tag-row">${item.tags.map((t) => `<span class="tag">${esc(t)}</span>`).join('')}</div>` : '';
+  // The four headline items and the five highlights become one row of uniform,
+  // numbered slides (01…09). Stacked, they made this section ~1,600px tall on
+  // phones; as a carousel it is one card tall at every width.
+  const slides = [...f.items, ...f.highlights].map((item, i) => ({
+    ...item,
+    index: item.index || String(i + 1).padStart(2, '0'),
+  }));
+  const chevron = (d) =>
+    `<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="${d}"/></svg>`;
 
+  // Arrows and dots ship `hidden`; animations.js reveals them once the carousel
+  // is wired up, so without JS the row is simply swipeable with no dead controls.
   const features = `
-  <section class="section" id="features">
+  <section class="section" id="features" data-carousel aria-roledescription="carousel" aria-labelledby="featuresTitle">
     <div class="container">
-      <p class="eyebrow" data-reveal>${esc(f.eyebrow)}</p>
-      <h2 class="section-title" data-reveal data-reveal-delay="1">${esc(f.title)}</h2>
-      <div class="bento">
-        ${f.items
-          .map(
-            (item, i) => `
-        <article class="bento-card bento-card-${i + 1}" data-reveal data-reveal-delay="${i}">
-          <span class="bento-index">${esc(item.index)}</span>
-          <h3>${esc(item.title)}</h3>
-          <p>${esc(item.description)}</p>
-          ${featureTags(item)}
-        </article>`
-          )
-          .join('')}
-        ${f.highlights
-          .map(
-            (h) => `
-        <article class="bento-card bento-mini" data-reveal>
-          <h3>${esc(h.title)}</h3>
-          <p>${esc(h.description)}</p>
-        </article>`
-          )
-          .join('')}
+      <div class="section-head">
+        <div class="section-head-text">
+          <p class="eyebrow" data-reveal>${esc(f.eyebrow)}</p>
+          <h2 class="section-title" id="featuresTitle" data-reveal data-reveal-delay="1">${esc(f.title)}</h2>
+        </div>
+        <div class="carousel-arrows" data-carousel-controls data-reveal data-reveal-delay="2" hidden>
+          <button class="carousel-btn" type="button" data-carousel-prev aria-controls="featuresTrack" aria-label="Previous feature">${chevron('M15 18l-6-6 6-6')}</button>
+          <button class="carousel-btn" type="button" data-carousel-next aria-controls="featuresTrack" aria-label="Next feature">${chevron('M9 6l6 6-6 6')}</button>
+        </div>
+      </div>
+      <div class="carousel" data-reveal data-reveal-delay="2">
+        <div class="carousel-track" id="featuresTrack" role="group" aria-label="Feature cards" tabindex="0">
+          <div class="carousel-spacer" aria-hidden="true"></div>
+          ${slides
+            .map(
+              (item, i) => `
+          <article class="feature-card" role="group" aria-roledescription="slide" aria-label="${i + 1} of ${slides.length}">
+            <span class="feature-index" aria-hidden="true">${esc(item.index)}</span>
+            <h3>${esc(item.title)}</h3>
+            <p>${esc(item.description)}</p>
+            ${featureTags(item)}
+          </article>`
+            )
+            .join('')}
+          <div class="carousel-spacer" aria-hidden="true"></div>
+        </div>
+        <div class="carousel-dots" data-carousel-controls hidden>
+          ${slides
+            .map(
+              (item, i) =>
+                `<button class="carousel-dot" type="button" data-carousel-dot aria-controls="featuresTrack" aria-label="Go to feature ${i + 1}: ${esc(item.title)}"></button>`
+            )
+            .join('')}
+        </div>
       </div>
     </div>
   </section>`;

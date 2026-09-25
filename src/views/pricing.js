@@ -98,11 +98,11 @@ export function pricingPage(models, info) {
       <p class="page-sub" data-reveal data-reveal-delay="1">${esc(p.description)}</p>
       <div class="data-source ${live ? 'is-live' : ''}" data-reveal data-reveal-delay="2">
         <span class="pulse-dot"></span>
-        ${
+        <span class="data-source-text">${
           live
             ? `Live data · fetched from <a href="${esc(info._endpoint || 'https://api.aisubscription.shop/api/pricing')}" rel="noopener">api.aisubscription.shop</a>${info._fetchedAt ? ` · ${esc(info._fetchedAt)}` : ''}`
             : 'Snapshot data · upstream API unreachable right now (bundled fallback)'
-        }
+        }</span>
       </div>
     </div>
   </section>
@@ -132,6 +132,12 @@ export function pricingPage(models, info) {
 
       <div class="model-grid" id="modelGrid">
         ${models.map((m) => modelCard(m, '1M')).join('')}
+      </div>
+
+      <div class="empty-state" id="emptyState" role="status" hidden>
+        <p class="empty-title">No models match those filters</p>
+        <p class="empty-sub">Try a shorter search term, or widen the vendor / billing filters.</p>
+        <button class="btn btn-outline btn-sm" type="button" id="clearFilters">Clear filters</button>
       </div>
 
       <nav class="pagination" id="pagination" aria-label="Pagination"></nav>
