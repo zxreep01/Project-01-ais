@@ -44,25 +44,25 @@ export function layout({ title, description = '', active = '', content = '', bod
   const footerCols = `
     <div class="footer-col">
       <h4>Product</h4>
+      <a href="/#features">Features</a>
+      <a href="/#product">Console</a>
       <a href="/pricing">Pricing</a>
-      <a href="/docs">Docs</a>
-      <a href="/about">About</a>
+      <a href="/#faq">FAQ</a>
     </div>
     <div class="footer-col">
-      <h4>Account</h4>
-      <a href="/sign-in">Sign in</a>
-      <a href="/sign-up">Sign up</a>
-      <a href="/forgot-password">Forgot password</a>
+      <h4>Company</h4>
+      <a href="/about">About</a>
+      <a href="/docs">Docs</a>
+      <a href="/pricing">Status</a>
     </div>
     <div class="footer-col">
       <h4>Legal</h4>
       ${nav.legal.map((l) => `<a href="${esc(l.href)}">${esc(l.label)}</a>`).join('')}
     </div>
     <div class="footer-col">
-      <h4>Resources</h4>
-      <a href="${esc(site.docsUrl)}" rel="noopener">API Reference ↗</a>
-      <a href="/api/pricing">Pricing JSON</a>
-      <a href="${esc(site.sourceUrl)}" rel="noopener">Original site ↗</a>
+      <h4>Account</h4>
+      <a href="/sign-in">Sign in</a>
+      <a href="/sign-up">Sign up</a>
     </div>`;
 
   return `<!doctype html>
@@ -132,7 +132,6 @@ export function layout({ title, description = '', active = '', content = '', bod
       </div>
       <div class="footer-bottom">
         <span>© 2026 ${esc(site.name)} · AI Application Infrastructure Foundation</span>
-        <span class="footer-src">Data source: <a href="${esc(site.sourceUrl)}" rel="noopener">aisubscription.shop</a></span>
       </div>
     </div>
   </footer>

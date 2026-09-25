@@ -7,7 +7,7 @@
 // accept. Keep this file as plain data — no imports, no modern-only syntax.
 
 export default {
-  "_note": "Status/latency/TPS snapshot scraped from the aisubscription.shop pricing page (not exposed by the public pricing API).",
+  "_note": "Status/latency/TPS snapshot scraped from the gateway pricing page (not exposed by the public pricing API).",
   "scrapedAt": "2026-09-25",
   "models": {
     "/data/models/GLM-5.3-Flash": { "status": "85.98%", "latency": "16.22s", "tps": "75.1" },
