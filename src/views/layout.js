@@ -104,7 +104,7 @@ export function layout({ title, description = '', active = '', content = '', bod
         <a class="btn btn-ghost btn-sm" href="/sign-in">Sign in</a>
         <a class="btn btn-primary btn-sm" href="/sign-up">Get Started</a>
       </div>
-      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navMobile">
+      <button class="nav-toggle" id="navToggle" type="button" aria-label="Toggle menu" aria-expanded="false" aria-controls="navMobile">
         <span></span><span></span><span></span>
       </button>
     </div>
