@@ -7,6 +7,7 @@ export function homePage() {
   const hero = `
   <section class="hero">
     <div class="container hero-inner">
+      <div class="invert-oval" aria-hidden="true"></div>
       <div class="hero-badge" data-reveal>
         <span class="pulse-dot"></span>${esc(p.badge)}
       </div>
