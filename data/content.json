@@ -1,0 +1,317 @@
+{
+  "site": {
+    "name": "AI Subscription",
+    "tagline": "Unified API Gateway for a Vast Range of AI Models",
+    "logoUrl": "https://api.aisubscription.shop/logo.png",
+    "apiBaseUrl": "https://api.aisubscription.shop",
+    "pricingApiUrl": "https://api.aisubscription.shop/api/pricing",
+    "docsUrl": "https://api.aisubscription.shop/llms-docs",
+    "sourceUrl": "https://aisubscription.shop"
+  },
+  "pages": {
+    "home": {
+      "path": "/",
+      "badge": "AI Application Infrastructure Foundation",
+      "hero": {
+        "title": "Unified API Gateway for a Vast Range of AI Models",
+        "subtitle": "Access a vast selection of models via a standard, unified API protocol. Power AI applications, manage digital assets, and connect the Future.",
+        "ctas": [
+          { "label": "Get Started", "href": "/sign-up" },
+          { "label": "View Pricing", "href": "/pricing" },
+          { "label": "Docs", "href": "https://api.aisubscription.shop/llms-docs" }
+        ]
+      },
+      "supportedApplications": {
+        "eyebrow": "Supported Applications",
+        "description": "Supports one-click configuration and perfectly adapts to NewAPI multi-protocol configuration.",
+        "apps": [
+          { "name": "Cherry Studio", "href": "https://cherry-ai.com/" },
+          { "name": "CC Switch", "href": "https://ccswitch.io/", "icon": "https://ccswitch.io/favicon.png" }
+        ],
+        "moreApps": ["More Apps"]
+      },
+      "apiDemo": {
+        "tabs": ["Chat", "Responses", "Claude", "Gemini"],
+        "status": "200 ok",
+        "method": "POST",
+        "endpoint": "/v1/chat/completions",
+        "request": "curl -X POST \"/v1/chat/completions\" \\\n  -H \"Authorization: Bearer sk-••••\" \\\n  -d '{\n    \"model\": \"your-model\",\n    \"messages\": [\n      { \"role\": \"user\", \"content\": \"...\" }\n    ]\n  }'",
+        "response": "{\n  \"choices\": [{ \"message\": { \"content\": \"Chat request routed.\" } }],\n  \"usage\": { \"total_tokens\": 27 }\n}",
+        "meta": [
+          { "label": "latency", "value": "142ms" },
+          { "label": "tokens", "value": "27" },
+          { "label": "cost", "value": "$0.00081" }
+        ],
+        "streamBadge": "stream · sse"
+      },
+      "stats": [
+        { "value": "42+", "label": "upstream services integrated" },
+        { "value": "52+", "label": "model billing support" },
+        { "value": "9+", "label": "compatible API routes" },
+        { "value": "24/7", "label": "scheduling controls" }
+      ],
+      "features": {
+        "eyebrow": "Core Features",
+        "title": "Built for developers, designed for scale",
+        "items": [
+          {
+            "index": "01",
+            "title": "Lightning Fast",
+            "description": "Optimized network architecture ensures millisecond response times",
+            "tags": ["OpenAI", "Claude", "Gemini", "DeepSeek", "Qwen", "Llama"]
+          },
+          {
+            "index": "02",
+            "title": "Secure & Reliable",
+            "description": "Enterprise-grade security with comprehensive permission management"
+          },
+          {
+            "index": "03",
+            "title": "Global Coverage",
+            "description": "Multi-region deployment for stable global access",
+            "tags": ["Load Balancing", "Rate Limiting", "Cost Tracking"]
+          },
+          {
+            "index": "04",
+            "title": "Developer Friendly",
+            "description": "Compatible API routes for common AI application workflows",
+            "tags": ["API", "SDK", "CLI", "Docs"]
+          }
+        ],
+        "highlights": [
+          { "title": "Multi-protocol Compatible", "description": "One unified protocol across OpenAI, Claude, Gemini and more." },
+          { "title": "High Performance", "description": "Support for high concurrency with automatic load balancing" },
+          { "title": "Transparent Billing", "description": "Pay-as-you-go with real-time usage monitoring" },
+          { "title": "Team Collaboration", "description": "Multi-user management with flexible permission allocation" },
+          { "title": "Open Source", "description": "Community driven, self-hosted, and extensible" }
+        ]
+      },
+      "howItWorks": {
+        "eyebrow": "How It Works",
+        "title": "Three steps to get started",
+        "steps": [
+          { "step": 1, "title": "Configure", "description": "Add your API keys, set up channels and configure access permissions" },
+          { "step": 2, "title": "Connect", "description": "Connect through OpenAI, Claude, Gemini, and other compatible API routes" },
+          { "step": 3, "title": "Monitor", "description": "Track usage, costs and performance with real-time analytics" }
+        ]
+      },
+      "cta": {
+        "title": "Ready to simplify your AI integration?",
+        "subtitle": "Deploy your own gateway and start routing requests through your configured upstream services.",
+        "ctas": [
+          { "label": "Get Started", "href": "/sign-up" },
+          { "label": "View Pricing", "href": "/pricing" }
+        ]
+      }
+    },
+    "pricing": {
+      "path": "/pricing",
+      "title": "Pricing",
+      "description": "Transparent, pay-as-you-go pricing for every model. Filter by vendor, billing type and endpoint.",
+      "filters": {
+        "totalModels": 52,
+        "modes": ["Standard", "Recharge"],
+        "unitToggle": ["/1M", "/1K"],
+        "sort": "Name"
+      },
+      "columns": ["Name", "Pricing", "Groups", "Endpoints", "Status", "Latency", "TPS"],
+      "billingTypes": ["Token-based", "Per Request", "Dynamic Pricing"],
+      "dataSource": "/api/pricing (see data/models.json)",
+      "pagination": { "perPage": 20, "totalPages": 3 }
+    },
+    "signIn": {
+      "path": "/sign-in",
+      "title": "Sign in",
+      "subtitle": "Don't have an account?",
+      "subtitleLink": { "label": "Sign up", "href": "/sign-up" },
+      "oauth": { "divider": "Or continue with", "providers": ["GitHub"] },
+      "fields": [
+        { "label": "Username or Email", "type": "text" },
+        { "label": "Password", "type": "password" }
+      ],
+      "forgotPassword": { "label": "Forgot password?", "href": "/forgot-password" },
+      "submit": "Sign in",
+      "agreementNote": "I have read and agree to the User Agreement and the Privacy Policy.",
+      "consentNote": "By clicking sign in, you agree to our User Agreement and Privacy Policy."
+    },
+    "signUp": {
+      "path": "/sign-up",
+      "title": "Create an account",
+      "subtitle": "Already have an account?",
+      "subtitleLink": { "label": "Sign in", "href": "/sign-in" },
+      "fields": [
+        { "label": "Username", "type": "text" },
+        { "label": "Password", "type": "password" },
+        { "label": "Confirm password", "type": "password" }
+      ],
+      "agreementCheckbox": "I have read and agree to the User Agreement and the Privacy Policy.",
+      "submit": "Create account",
+      "oauth": { "divider": "Or continue with", "providers": ["GitHub"] },
+      "consentNote": "By creating an account, you agree to our User Agreement and Privacy Policy."
+    },
+    "forgotPassword": {
+      "path": "/forgot-password",
+      "title": "Forgot password",
+      "description": "Enter your registered email and we will send you a link to reset your password.",
+      "subtitle": "Don't have an account?",
+      "subtitleLink": { "label": "Sign up", "href": "/sign-up" },
+      "fields": [{ "label": "Email", "type": "email" }],
+      "submit": "Send reset email"
+    },
+    "userAgreement": {
+      "path": "/user-agreement",
+      "title": "User Agreement",
+      "intro": "By using AI Subscription, you agree to use the service only for lawful purposes.",
+      "sections": [
+        "You are responsible for your API keys, account activity, and the content generated through the service.",
+        "You must not use the service for illegal, abusive, fraudulent, or harmful activities.",
+        "AI Subscription may update, suspend, or modify services when necessary."
+      ]
+    },
+    "privacyPolicy": {
+      "path": "/privacy-policy",
+      "title": "Privacy Policy",
+      "intro": "AI Subscription respects your privacy.",
+      "sections": [
+        "We may process account information, API usage data, requests, responses, and technical information required to provide and improve the service.",
+        "We do not sell personal information to third parties.",
+        "API credentials should be kept confidential and must not be shared with others.",
+        "We may retain certain technical and usage information for security, troubleshooting, billing, and service improvement.",
+        "By using AI Subscription, you agree to this Privacy Policy."
+      ]
+    },
+    "about": {
+      "path": "/about",
+      "title": "About",
+      "note": "Content synthesized from site metadata (the live /about route redirects to home). Based on llms-docs branding: 'Tantra AI Labs — Open-Weight AI, Built From Scratch' / 'Build with Astra AI Gateway'.",
+      "intro": "AI Subscription is an AI Application Infrastructure Foundation: one OpenAI-compatible endpoint routing 42+ models — text, vision, image generation and video — with pay-as-you-go wallet billing and guaranteed structured output.",
+      "highlights": [
+        "One endpoint. Every model — automatic failover, zero-buffering streaming, per-second video generation.",
+        "Pay-as-you-go wallet billing from one balance; live balance metadata in every response.",
+        "OpenAI, Claude and cURL compatible — works with any OpenAI/Anthropic SDK.",
+        "Guaranteed structured output via JSON Schema guided decoding."
+      ]
+    },
+    "docs": {
+      "path": "/docs",
+      "originalUrl": "https://api.aisubscription.shop/llms-docs",
+      "eyebrow": "MACHINE-READABLE API REFERENCE",
+      "title": "Build with Astra AI Gateway.",
+      "subtitle": "One OpenAI-compatible endpoint. 42+ models — text, vision, image generation and video — with pay-as-you-go wallet billing and guaranteed structured output.",
+      "stats": [
+        { "value": "42+", "label": "models" },
+        { "value": "$0.06/M", "label": "from" },
+        { "value": "3 SDKs", "label": "OpenAI · Claude · cURL" },
+        { "value": "99.9%", "label": "uptime target" }
+      ],
+      "sections": [
+        {
+          "number": "01",
+          "title": "One endpoint. Every model.",
+          "body": "Astra AI Gateway routes your requests across 42+ state-of-the-art models with automatic failover, zero-buffering streaming and per-second video generation — all billed from one pay-as-you-go wallet.",
+          "code": "curl https://api.aisubscription.shop/v1/chat/completions \\\n  -H \"Authorization: Bearer $ASTRA_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\n    \"model\": \"deepseek-v4-flash\",\n    \"messages\": [\n      {\"role\": \"user\", \"content\": \"Hello\"}\n    ],\n    \"max_tokens\": 2000\n  }'",
+          "note": "Set base_url = \"https://api.aisubscription.shop/v1\" in any OpenAI / Anthropic SDK. Auth accepts Bearer, X-Astra-Key or x-api-key."
+        },
+        {
+          "number": "02",
+          "title": "Three ways to pass your key.",
+          "body": "Every endpoint accepts the same key in three header styles — pick whatever your SDK prefers.",
+          "items": [
+            { "label": "Authorization", "value": "Bearer sk-..." },
+            { "label": "X-Astra-Key", "value": "sk-..." },
+            { "label": "x-api-key", "value": "sk-... (Claude SDKs)" }
+          ]
+        },
+        {
+          "number": "03",
+          "title": "42+ models. Zero lock-in.",
+          "body": "Live list always available at GET /v1/models.",
+          "items": [
+            { "label": "GLM-5.3-Flash", "value": "flagship Zhipu GLM · reasoning-capable · best value" },
+            { "label": "DeepSeek-V4.1-Flash", "value": "fast general chat · deepseek-v4-pro for heavier tasks" },
+            { "label": "Qwen3.8 / Qwen3-Max / Qwen3-Coder", "value": "Alibaba Qwen family" },
+            { "label": "kimi-k3 / kimi-k2.7-code", "value": "Moonshot Kimi · strong at code" },
+            { "label": "minimax-m3 / M2.7", "value": "MiniMax family" },
+            { "label": "gemini-2.5-flash / 3.x-flash", "value": "Google Gemini" },
+            { "label": "gpt-oss-120b", "value": "open-weights GPT-class" },
+            { "label": "dall-e-3 · flux-image", "value": "image generation" },
+            { "label": "MiniMax-H3", "value": "video generation · $0.10/sec" }
+          ]
+        },
+        {
+          "number": "04",
+          "title": "Everything, one base URL.",
+          "body": "All endpoints share one base URL.",
+          "items": [
+            { "method": "POST", "path": "/v1/chat/completions", "value": "OpenAI-format chat · streaming · structured output" },
+            { "method": "POST", "path": "/v1/messages", "value": "Anthropic Claude format (x-api-key auth)" },
+            { "method": "POST", "path": "/v1/images/generations", "value": "text-to-image · b64_json or url" },
+            { "method": "POST", "path": "/v1/videos", "value": "video job (async)" },
+            { "method": "GET", "path": "/v1/videos/{id}", "value": "poll status · signed url when done" },
+            { "method": "GET", "path": "/v1/videos/{id}/content", "value": "download rendered MP4" },
+            { "method": "GET", "path": "/v1/models", "value": "list all models for your key" },
+            { "method": "GET", "path": "/v1/key/info", "value": "balance · usage · model access" },
+            { "method": "GET", "path": "/v1/info", "value": "account · plan · logins · wallet" }
+          ]
+        },
+        {
+          "number": "05",
+          "title": "JSON Schema. Guaranteed.",
+          "body": "Add response_format with a JSON Schema — the output is schema-valid by construction via guided decoding. No code fences, no prose, no parsing hacks.",
+          "code": "{\n  \"model\": \"/data/models/GLM-5.3-Flash\",\n  \"messages\": [{\"role\": \"user\", \"content\": \"Create person record: Ravi, 30, Mumbai\"}],\n  \"max_tokens\": 2000,\n  \"response_format\": {\n    \"type\": \"json_schema\",\n    \"json_schema\": {\n      \"name\": \"person\",\n      \"strict\": true,\n      \"schema\": {\n        \"type\": \"object\",\n        \"properties\": {\n          \"name\": {\"type\": \"string\"},\n          \"age\": {\"type\": \"integer\"},\n          \"city\": {\"type\": \"string\"}\n        },\n        \"required\": [\"name\", \"age\", \"city\"],\n        \"additionalProperties\": false\n      }\n    }\n  }\n}",
+          "note": "strict: true — full schema enforcement, no drift. json_object mode — simple \"must be JSON\" without schema. max_tokens ≥ 2000 — reasoning models think before emitting JSON."
+        },
+        {
+          "number": "06",
+          "title": "Text to video, $0.10/second.",
+          "body": "Submit a job, poll the status, play the MP4 — signed URL included in the status response, valid for one hour, playable directly in any browser.",
+          "items": [
+            { "label": "1 · Submit", "value": "POST /v1/videos {\"model\": \"/data/Models/MiniMax-H3\", \"prompt\": \"...\", \"seconds\": \"5\", \"aspect_ratio\": \"16:9\"} → {\"task_id\": \"task_...\", \"status\": \"queued\"}" },
+            { "label": "2 · Poll (~2.5 min for 5s)", "value": "GET /v1/videos/{task_id} → {\"status\": \"completed\", \"progress\": 100, \"url\": \"/media/video_gen_....mp4?exp=...&sig=...\"}" },
+            { "label": "3 · Play / download", "value": "https://api.aisubscription.shop{url} → signed link, plays in browser, no auth needed, 1-hour validity" }
+          ]
+        },
+        {
+          "number": "07",
+          "title": "Know your balance. Always.",
+          "body": "Every response body carries an astra block with live wallet state — never guess when to recharge.",
+          "code": "\"astra\": {\n  \"gateway\": \"aisubscription.shop\",\n  \"balance_usd\": \"12.3571\",\n  \"used_usd\": \"26.5082\",\n  \"plan\": \"default/prepaid\",\n  \"models_count\": \"42\",\n  \"providers\": \"aisubscription.shop\",\n  \"requests\": \"544\"\n}"
+        },
+        {
+          "number": "08",
+          "title": "Pay-as-you-go. No subscriptions.",
+          "body": "One wallet, per-use billing. Live balance in every response and at GET /v1/key/info.",
+          "items": [
+            { "label": "Text", "value": "from $0.06/M tokens · GLM-5.3-Flash input · DeepSeek $0.165/M" },
+            { "label": "Images", "value": "$0.0112 – $0.03 per image · dall-e-3, flux, image-model" },
+            { "label": "Video", "value": "$0.10 / second · 5s = $0.50 · 10s = $1.00 · HD" }
+          ]
+        }
+      ],
+      "cta": {
+        "title": "Ready to build?",
+        "subtitle": "Grab a key, point your SDK at the gateway, ship something.",
+        "ctas": [
+          { "label": "Explore models ↗", "href": "/pricing" },
+          { "label": "Dashboard", "href": "/" }
+        ]
+      }
+    }
+  },
+  "nav": {
+    "links": [
+      { "label": "Home", "href": "/" },
+      { "label": "Pricing", "href": "/pricing" },
+      { "label": "Docs", "href": "/docs" },
+      { "label": "About", "href": "/about" }
+    ],
+    "auth": [
+      { "label": "Sign in", "href": "/sign-in" },
+      { "label": "Sign up", "href": "/sign-up" }
+    ],
+    "legal": [
+      { "label": "User Agreement", "href": "/user-agreement" },
+      { "label": "Privacy Policy", "href": "/privacy-policy" }
+    ]
+  }
+}
