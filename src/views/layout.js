@@ -60,9 +60,9 @@ export function layout({ title, description = '', active = '', content = '', bod
     </div>
     <div class="footer-col">
       <h4>Resources</h4>
-      <a href="${esc(site.docsUrl)}" rel="noopener">API Reference ↗</a>
+      <a href="${esc(site.docsUrl)}" rel="noopener" target="_blank">API Reference ↗</a>
       <a href="/api/pricing">Pricing JSON</a>
-      <a href="${esc(site.sourceUrl)}" rel="noopener">Original site ↗</a>
+      <a href="${esc(site.sourceUrl)}" rel="noopener" target="_blank">Original site ↗</a>
     </div>`;
 
   return `<!doctype html>
@@ -81,6 +81,7 @@ export function layout({ title, description = '', active = '', content = '', bod
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/styles.css">
+  <noscript><style>[data-reveal]{opacity:1 !important;transform:none !important}</style></noscript>
   <script src="/js/animations.js" defer></script>
   ${extraHead}
 </head>
@@ -104,7 +105,7 @@ export function layout({ title, description = '', active = '', content = '', bod
         <a class="btn btn-ghost btn-sm" href="/sign-in">Sign in</a>
         <a class="btn btn-primary btn-sm" href="/sign-up">Get Started</a>
       </div>
-      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navMobile">
+      <button class="nav-toggle" id="navToggle" type="button" aria-label="Toggle menu" aria-expanded="false" aria-controls="navMobile">
         <span></span><span></span><span></span>
       </button>
     </div>

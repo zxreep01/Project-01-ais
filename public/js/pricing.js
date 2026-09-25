@@ -11,6 +11,8 @@
   const unitBtns = Array.from(document.querySelectorAll('.unit-btn'));
   const countEl = document.getElementById('visibleCount');
   const pagination = document.getElementById('pagination');
+  const emptyState = document.getElementById('emptyState');
+  const clearBtn = document.getElementById('clearFilters');
   const PER_PAGE = 21;
 
   let unit = '1M';
@@ -54,7 +56,8 @@
     const v = vendorSel?.value || '';
     const b = billingSel?.value || '';
     filtered = cards.filter((c) => {
-      if (q && !c.dataset.name.includes(q)) return false;
+      // match the vendor too — it's printed on every card ("Google", "DeepSeek")
+      if (q && !c.dataset.name.includes(q) && !c.dataset.vendor.includes(q)) return false;
       if (v && c.dataset.vendor !== v) return false;
       if (b && c.dataset.billing !== b) return false;
       return true;
@@ -70,6 +73,7 @@
     const visible = new Set(filtered.slice(start, start + PER_PAGE));
     cards.forEach((c) => c.classList.toggle('is-hidden', !visible.has(c)));
     if (countEl) countEl.textContent = filtered.length;
+    if (emptyState) emptyState.hidden = filtered.length !== 0;
     renderPagination(totalPages);
   }
 
@@ -77,7 +81,7 @@
     if (!pagination) return;
     if (totalPages <= 1) { pagination.innerHTML = ''; return; }
     const btn = (label, target, opts = {}) =>
-      `<button class="page-btn${opts.active ? ' is-active' : ''}" data-page="${target}" ${opts.disabled ? 'disabled' : ''} aria-label="${label}">${opts.text ?? label}</button>`;
+      `<button class="page-btn${opts.active ? ' is-active' : ''}" type="button" data-page="${target}" ${opts.disabled ? 'disabled' : ''} ${opts.active ? 'aria-current="page"' : ''} aria-label="${label}">${opts.text ?? label}</button>`;
     let html = btn('Previous page', page - 1, { disabled: page === 1, text: '‹' });
     for (let i = 1; i <= totalPages; i++) html += btn(`Page ${i}`, i, { active: i === page, text: i });
     html += btn('Next page', page + 1, { disabled: page === totalPages, text: '›' });
@@ -89,12 +93,22 @@
     if (!b || b.disabled) return;
     page = Number(b.dataset.page);
     renderPage();
-    grid.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    // scroll-margin-top (styles.css) keeps the first row clear of the fixed nav
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    grid.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
   });
 
   search?.addEventListener('input', applyFilters);
   vendorSel?.addEventListener('change', applyFilters);
   billingSel?.addEventListener('change', applyFilters);
+
+  clearBtn?.addEventListener('click', () => {
+    if (search) search.value = '';
+    if (vendorSel) vendorSel.value = '';
+    if (billingSel) billingSel.value = '';
+    applyFilters();
+    search?.focus();
+  });
 
   unitBtns.forEach((b) =>
     b.addEventListener('click', () => {

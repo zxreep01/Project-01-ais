@@ -27,6 +27,25 @@
     }
   });
 
+  // `.is-revealing` carries the entrance transition only for its duration, so
+  // afterwards the component's own transitions (hover lifts…) apply again.
+  const reveal = (el) => {
+    el.classList.add('in-view', 'is-revealing');
+    const delay = Number(el.style.getPropertyValue('--reveal-delay')) || 0;
+    let finished = false;
+    const done = () => {
+      if (finished) return;
+      finished = true;
+      el.classList.remove('is-revealing');
+    };
+    el.addEventListener('transitionend', function onEnd(e) {
+      if (e.target !== el || e.propertyName !== 'opacity') return;
+      el.removeEventListener('transitionend', onEnd);
+      done();
+    });
+    setTimeout(done, 700 + delay * 70 + 200); // fallback if transitionend never fires
+  };
+
   if (prefersReduced || !('IntersectionObserver' in window)) {
     revealEls.forEach((el) => el.classList.add('in-view'));
   } else {
@@ -34,7 +53,7 @@
       (entries) => {
         for (const entry of entries) {
           if (entry.isIntersecting) {
-            entry.target.classList.add('in-view');
+            reveal(entry.target);
             io.unobserve(entry.target);
           }
         }
@@ -48,6 +67,10 @@
   const parseTarget = (raw) => {
     const m = /^([\d.,]+)(.*)$/.exec(String(raw).trim());
     if (!m) return null;
+    // Values like "24/7" aren't quantities: tweening the leading digits
+    // renders nonsense fractions ("3/7", "22/7") mid-animation. Only count
+    // plain numbers with a unit-style suffix ("42+", "99.9%", "142ms").
+    if (/[\d/]/.test(m[2])) return null;
     return { num: parseFloat(m[1].replace(/,/g, '')), suffix: m[2] || '', decimals: (m[1].split('.')[1] || '').length };
   };
 
@@ -87,6 +110,8 @@
   const ctaRingBar = document.getElementById('ctaRingBar');
   const RING_LEN = 100.53; // 2πr for r=16, matches stroke-dasharray in CSS
   let ticking = false;
+  let footerInView = false; // maintained by the footer observer below
+
   const onScroll = () => {
     if (ticking) return;
     ticking = true;
@@ -97,7 +122,7 @@
       if (bar) bar.style.width = `${progress * 100}%`;
       if (nav) nav.classList.toggle('is-scrolled', window.scrollY > 12);
       // reveal the mini-CTA once the visitor is past the fold
-      if (stickyCta) stickyCta.classList.toggle('is-visible', window.scrollY > window.innerHeight * 0.75);
+      if (stickyCta) stickyCta.classList.toggle('is-visible', window.scrollY > window.innerHeight * 0.75 && !footerInView);
       if (ctaRingBar) ctaRingBar.style.strokeDashoffset = String(RING_LEN * (1 - progress));
       ticking = false;
     });
@@ -105,6 +130,16 @@
   window.addEventListener('scroll', onScroll, { passive: true });
   window.addEventListener('resize', onScroll, { passive: true });
   onScroll();
+
+  // Park the floating CTA while the footer is on screen: it sits bottom-right,
+  // exactly where "Data source: …" lives, and covered that link at 1024–1366px.
+  const footer = document.querySelector('.footer');
+  if (stickyCta && footer && 'IntersectionObserver' in window) {
+    new IntersectionObserver((entries) => {
+      footerInView = entries[0].isIntersecting;
+      onScroll();
+    }).observe(footer);
+  }
 
   /* ---------- mobile nav ---------- */
   const toggle = document.getElementById('navToggle');
